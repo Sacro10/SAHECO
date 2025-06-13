@@ -1,0 +1,14 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+.title {
+    margin: 40px auto;
+    border-bottom: 3px solid red;
+} 
+.title h1{
+    margin-left: 100px;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 80px;
+}
