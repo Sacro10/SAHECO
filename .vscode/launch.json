@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         
     
         
@@ -13,7 +14,7 @@
             "type": "msedge",
             "request": "launch",
             "name": "Open saheco",
-            "file": "c:\\Users\\USER\\Documents\\saheco\\html\\index.html"
+            "file": "c:\\Users\\USER\\Documents\\saheco\\SAHECO\\html\\index.html"
         }
     ]
 }
