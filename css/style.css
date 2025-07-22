@@ -1,92 +1,155 @@
-*{
+
+/* Universal Box Sizing */
+* {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
 }
 
-body{
-   background-color: white;
-   font-family: Arial, Helvetica, sans-serif;
+body {
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scrollbar due to margins/paddings on mobile */
 }
-.width-100{
+
+/* Base Width Classes - Make them flexible */
+.width-100 {
     width: 100%;
-    float: left;
+    float: left; /* Keep float for now where it's already used, but prefer flexbox for new layouts */
 }
-.container{
-    width: 1500px;
+
+/* Container - From fixed to max-width and fluid padding */
+.container {
+    max-width: 1500px; /* Use max-width instead of fixed width */
     margin: 0px auto;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap; /* Allow items to wrap in smaller containers */
+    padding: 0 15px; /* Add horizontal padding for smaller screens */
 }
-.top-header{
+
+/* Top Header */
+.top-header {
     background: rgb(252, 63, 63);
     padding: 5px 0px;
     border-bottom: 1px solid #2c2b2b5e;
 }
-.headquote{
+
+.headquote {
     font-size: 18px;
     color: #fff;
-    width: 80%;
+    width: 80%; /* Still works for the marquee effect */
+    display: inline-block; /* Ensure it stays next to news-list */
+    vertical-align: middle; /* Align with news-list */
 }
-.news-list{
+
+.news-list {
     background: #fff;
     color: red;
     padding: 6px;
     font-size: 20px;
+    display: inline-block; /* Ensure it stays next to headquote */
+    vertical-align: middle; /* Align with headquote */
 }
-.header-menu{
+
+/* Header Menu */
+.header-menu {
     position: relative;
     box-shadow: 0px 2px 5px 0px #00000036;
+    display: flex; /* Use flexbox for menu items */
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Space out logo and menu */
+    padding: 10px 15px; /* Add padding for better spacing on mobile */
 }
-.logo img{
-    width: 30%;
-    float: left;
+
+.logo img {
+    width: 100px; /* Set a reasonable max-width for the logo */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
 }
-.main-menu{
+
+/* Main Menu (Desktop) */
+.main-menu {
     list-style: none;
-    float: right;
-    margin-top: 20px;
-    margin-right: 30px;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for desktop navigation */
 }
-.main-menu a{
+
+.main-menu a {
     font-weight: 600;
     color: rgb(193, 31, 31);
-    font-size: 25px;
+    font-size: 20px; /* Slightly reduced for better fit */
     text-decoration: none;
+    white-space: nowrap; /* Prevent menu items from wrapping prematurely */
 }
-.main-menu li{
-    float: left;
-    padding: 10px 25px;
+
+.main-menu li {
+    padding: 10px 15px; /* Adjusted padding */
 }
-.main-menu a:hover{
+
+.main-menu a:hover {
     color: #f10909;
 }
-.main-menu li a.active{
+
+.main-menu li a.active {
     background-color: #e83333;
     border-radius: 3px;
     color: white;
 }
-.slider-width{
-    width: 1500px;
-    height: auto;
+
+/* Mobile Menu Specifics (Hidden by default, shown via JS) */
+.mobile {
+    display: none; /* Hidden on desktop */
+    cursor: pointer;
 }
-.margin-top-50{
+
+#close {
+    display: none; /* Hidden on desktop */
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 200; /* Ensure it's above other content */
+}
+
+
+/* Slider Image */
+.slider-width {
+    width: 100%; /* Make slider image fluid */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove extra space below image */
+}
+
+.margin-top-50 {
     margin-top: 50px;
 }
-.width-33{
-    width: 33%;
+
+/* Content Sections (about-us, event-list, latest-news, notice-board, our-principal) */
+/* Using flexbox for these sections, dynamically adjust width */
+.con {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: space-around; /* Distribute items evenly */
+    gap: 20px; /* Space between flex items */
 }
-.latest-news{
-    margin-left: 10px;
-    margin-right: 10px;
+
+.width-33 {
+    width: calc(33.33% - 20px); /* Adjust width to account for gap */
+    min-width: 300px; /* Minimum width before wrapping */
+    /* Remove float: left; as flexbox handles positioning */
+}
+
+.latest-news, .event-list, .notice-board, .our-principal, .about-us {
+    margin: 0; /* Remove fixed margins, let gap handle it */
     background-color: #ffecec;
     padding: 20px;
-    height: 400px;
-    margin-bottom: 30px;
+    height: 400px; /* Keep fixed height, consider making dynamic if content varies */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column;
 }
-.heading-sect{
+
+.heading-sect {
     width: 100%;
-    float: left;
     border-bottom: 1px solid #cfcfcf;
     padding-bottom: 0px;
     margin: 0px;
@@ -96,435 +159,378 @@ body{
     padding-left: 10px;
     background-color: rgb(252, 63, 63);
     color: #fff;
+    flex-shrink: 0; /* Prevent heading from shrinking */
 }
-.head-title{
+
+.head-title {
     margin: 0px;
     padding: 0px;
     font-size: 16px;
     font-weight: 600;
     padding-bottom: 5px;
 }
-.latest-news-ul{
+
+.latest-news-ul, .upcoming-event-list, .notice-board-list, .useful-info-ul {
     padding: 0px;
     list-style: none;
-    line-height: 5vh;
+    line-height: 5vh; /* Consider using a fixed pixel height for more consistent spacing or allow it to be fluid */
+    flex-grow: 1; /* Allow content lists to grow and fill available space */
+    overflow-y: auto; /* Add scroll if content exceeds height */
 }
-.event-list{
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color:#ffecec;
-    padding: 20px;
-    height: 400px;
-    margin-bottom: 30px;
-}
-.upcoming-event-list{
-    padding: 0px;
-    list-style: none;
-}
-.upcoming-event-list li{
+
+.upcoming-event-list li, .notice-board-list li {
     width: 100%;
-    float: left;
+    float: left; /* Can keep float here if it suits, or convert to flex for inner items */
     margin-bottom: 15px;
 }
-.event-date{
-    background-color:  rgb(252, 63, 63);
-    width: 40px;
+
+.event-date {
+    background-color: rgb(252, 63, 63);
+    width: 40px; /* Increased width for date */
     float: left;
     text-align: center;
     font-size: 14px;
     color: #fff;
     padding: 8px;
     margin-right: 10px;
+    line-height: 1.2; /* Better line height for two lines of text */
 }
-.notice-board{
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color: #ffecec;
-    padding: 20px;
-    height: 400px;
-    margin-bottom: 30px;
-}
-.notice-board-list{
-    padding: 0px;
-    list-style: none;
-    line-height: 5vh;
-}
-.notice-board-list li{
-    width: 100%;
-    float: left;
-    margin-bottom: 15px;
-}
-.our-principal{
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color: #ffecec;
-    padding: 20px;
-    height: 400px;
-    margin-bottom: 30px;
-}
-.useful-info-ul{
-    list-style: none;
-}
-.useful-info-ul li{
+
+/* Principal/Useful Info Sections inside 'about-us' */
+.gov-sec-style {
     margin-bottom: 15px;
     border-bottom: 1px solid #9c1818;
     padding-bottom: 15px;
+    display: flex; /* Use flexbox for internal layout */
+    align-items: center; /* Vertically align image and text */
 }
+
+.width-40 {
+    width: 40%;
+    /* Remove float: left; */
+}
+.width-40 img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.width-60 {
+    width: 60%;
+    /* Remove float: left; */
+}
+.principal-name {
+    margin-top: 0; /* Reset margin */
+    font-weight: 600;
+    padding: 0 0 0 10px; /* Adjusted padding */
+}
+.designation {
+    font-size: 15px;
+    padding: 0px 10px 0px 10px;
+}
+
 .useful-info-ul li a{
     text-decoration: none;
+    font-weight: bold;
     color: black;
-    font-weight: 600;
 }
-.about-us{
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color: #ffecec;
-    padding: 20px;
-    height: 400px;
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-}
-.gov-sec-style{
-    margin-bottom: 15px;
-    border-bottom: 1px solid #9c1818;
-    padding-bottom: 15px;
-}
-.width-40 img{
-    width: 90%;
-}
-.width-40{
-    width: 40%;
-    float: left;
-}
-.width-60{
-    width: 60%;
-    float: left;
-}
-.principal-name{
-    margin-top: 20px;
-    font-weight: 600;
-    padding: 10px 0px 10px 10px;
-}
-.designation{
-    font-size: 15px;
-    padding: 0px 10px 10px 10px;
-}
-.certificate{
+
+/* Certificates */
+.certificate {
     width:100%;
-    align-items: center;
+    text-align: center; /* Center the image */
 }
-.certificate img{
+.certificate img {
     width: 80%;
-    padding-left: 10px;
-    margin-left: 30px;
-    padding-bottom: 5px;
+    max-width: 250px; /* Set a reasonable max-width for certificate image */
+    padding-left: 0; /* Remove fixed padding */
+    margin: 0 auto 5px auto; /* Center with auto margin, add bottom margin */
+    display: block;
 }
-.label a{
+.label a {
     text-decoration: none;
     font-weight: bold;
     color: #9c1818;
-    float: left;
-    padding-left: 180px;
+    float: none; /* Remove float */
+    display: block; /* Make it a block element to center */
+    text-align: center; /* Center the link */
+    padding-left: 0; /* Remove fixed padding */
 }
-.gallery-head-style{
+
+/* Gallery Section */
+.gallery-head-style {
     font-size: 28px;
     color: black;
-    margin-bottom: 5px;
+    margin-bottom: 15px; /* Adjusted margin */
     background: white;
     padding: 2px 0px;
+    text-align: center; /* Center the gallery heading */
 }
-.width-25{
-    width: 25%;
-    float: left;
-}
-.width-25 img{
-    width: 100%;
-    margin-right: 5px;
-}
-.container-x{
-    width: 1500px;
+
+.container-x {
+    max-width: 1500px; /* Use max-width */
     margin: 0px auto;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allow gallery items to wrap */
+    justify-content: center; /* Center items when they wrap */
+    gap: 10px; /* Space between gallery images */
+    padding: 0 15px; /* Add horizontal padding */
 }
-.recruiter-head-styler{
+
+.width-25 {
+    width: calc(25% - 10px); /* Adjust width for gap */
+    min-width: 200px; /* Minimum width before wrapping to fewer columns */
+    /* Remove float: left; */
+}
+.width-25 img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-right: 0; /* Remove fixed margin */
+}
+
+/* Recruiter Section */
+.recruiter-head-styler {
     font-size: 25px;
     font-weight: bold;
     color: #9c1818;
     margin-bottom: 1px;
     padding-top: 10px;
-    padding-left: 10px;
+    padding-left: 15px; /* Adjusted padding */
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center; /* Center the heading */
 }
-.recruiter-head-style{
+
+.recruiter {
+    height: 150px;
+    white-space: nowrap; /* Keep images in a single line for marquee */
+    display: flex; /* Use flexbox inside marquee to better control image spacing */
+    align-items: center; /* Vertically center images */
+    gap: 20px; /* Space between university logos */
+}
+
+.recruiter img {
+    width: auto; /* Let the height determine width, or set a max-width */
+    height: 100px; /* Fixed height for logos */
+    flex-shrink: 0; /* Prevent images from shrinking */
+}
+
+/* Footer */
+.footer {
+    background-color: #d41414;
+    padding: 50px 15px; /* Add horizontal padding */
+    display: flex;
+    flex-wrap: wrap; /* Allow footer columns to wrap */
+    justify-content: space-around; /* Space out footer columns */
+    gap: 30px; /* Space between footer columns */
+}
+
+.recruiter-head-style {
     font-size: 25px;
     font-weight: bold;
     color: white;
-    margin-bottom: 1px;
-    padding-top: 10px;
-    padding-left: 10px;
+    margin-bottom: 15px; /* Increased margin */
+    padding-top: 0px;
+    padding-left: 0px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-.recruiter{
-    height: 150px;
-}
-.recruiter img{
-    width: 10%;
-}
-.footer{
-    background-color: #d41414;
-    padding: 50px 0px;
-    display: flex;
-    flex-direction: row;
-}
-.direct-links{
+
+.direct-links {
     list-style: none;
-    margin-top: 20px;
-    margin-right: 30px;
+    margin-top: 0;
+    padding: 0;
 }
 
-.direct-links li a{
+.direct-links li a {
     text-decoration: none;
     font-size: 15px;
     color: white;
 }
-.direct-links li{
-    padding: 5px 10px;
+.direct-links li {
+    padding: 5px 0px; /* Adjusted padding */
 }
-.foot{
+
+.foot {
     flex-direction: column;
+    width: 100%; /* Default to full width on mobile */
+    max-width: 300px; /* Max width for individual footer columns */
+    text-align: center; /* Center content within each footer column */
 }
-.footer-2{
+
+.direct-links img {
+    height: 30px;
+    margin-top: 5px;
+    margin-right: 5px;
+    vertical-align: middle; /* Align image with text if present, though here it's just an image link */
+}
+
+.footer-2 {
     background-color: black;
-    padding: 10px 0px;
-    border-top: 1 px solid white;
+    padding: 10px 15px; /* Add horizontal padding */
+    border-top: 1px solid white; /* Corrected border syntax */
 }
-.footer-2c{
+.footer-2c {
     font-size: 14px;
     color: white;
     text-align: center;
 }
-.direct-links li a:hover{
+.footer-2c a img{
+    height: 20px;
+}
+.direct-links li a:hover {
     text-decoration: underline;
 }
-.direct-links img{
-    height: 30px;
-    margin-top: 5px;
-    margin-right: 5px;
-}
-.useful-info-ul li a:hover{
+.useful-info-ul li a:hover {
     color: #ed1c1c;
 }
-.con{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.footer-2 img{
-    height: 25px;
-    margin-left: 15px;
-    margin-top: 5px;
-}
-@media (min-width:1100px){
-    #close,#bar{
-    display: none;
-}
-}
-@media (min-width:550px) and (max-width:1100px){
-    *{
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-    }
-.main-menu{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        position: fixed;
-        top: 0;
-        right: -450px;
-        height: 100vh;
-        width: 350px;
-        background-color: #E3E6F3;
-        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.06);
-        padding: 80px 0 0 10px;
-        transition: 0.3s;
-    }
-    .main-menu.active{
-        right: -50px;
+
+
+/* Mobile and Tablet Media Queries */
+
+/* Tablet and smaller (e.g., up to 992px) */
+@media (max-width: 992px) {
+    .container, .container-x {
+        padding: 0 10px; /* Slightly less padding on smaller tablets */
     }
 
-    .main-menu li{
-        margin-bottom: 25px;
-    }
-    #mobile{
-        display: flex;
-        align-items: center;
-    }
-    #mobile li{
-        display: none;
-        align-items: center;
-        color: #088178;
-        font-size: 24px;
-        padding-left:20px ;
-    }
-    #close{
-        display: initial;
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        color:black;
-        font-size: 24px;
-    }
-    .container{
-    width: 900px;
-    margin: 0px auto;
-    display: flex;
-    flex-direction: row;
-    }
-    .slider-width{
-        width: 900px;
-        height: auto;
-    }
-    .width-33{
-    width: 50%;
-}
-.notice-board-list li{
-    line-height: 2vh;
-}
-    .con{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 900px;
-    }
-    .width-25{
-        width: 50%;
-        float: left;
-    }
-    .width-25 img{
-        width: 100%;
-        margin-right: 5px;
-    }
-    .recruiter img{
-    width: 10%;
-    }
-    .container-x{
-        width: 900px;
-        margin: 0px auto;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-    #bar{
-        margin-top: 50px;
-        margin-left: 400px;
-    }
-    .foot{
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-}
-@media (max-width:500px){
-    *{
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-    }
-.main-menu{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        position: fixed;
-        top: 0;
-        right: 650px;
-        height: 100vh;
-        width: 350px;
-        background-color: #E3E6F3;
-        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.06);
-        padding: 80px 0 0 10px;
-        transition: 0.3s;
-    }
-    .main-menu.active{
-        right: 950px;
+    .main-menu {
+        font-size: 18px; /* Adjust menu font size */
     }
 
-    .main-menu li{
-        margin-bottom: 25px;
+    .width-33 {
+        width: calc(48% - 10px); /* Two columns on tablets */
+        margin-bottom: 20px; /* Add space between rows */
     }
-    #mobile{
-        display: flex;
-        align-items: center;
+
+    .width-25 {
+        width: calc(33.33% - 10px); /* Three columns for gallery on tablets */
     }
-    #mobile li{
-        display: none;
-        align-items: center;
-        color: #088178;
-        font-size: 24px;
-        padding-left:20px ;
+
+    .foot {
+        width: calc(50% - 15px); /* Two columns for footer on tablets */
     }
-    #close{
-        display: initial;
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        color:black;
-        font-size: 24px;
+
+    .recruiter img {
+        height: 80px; /* Slightly smaller logos */
     }
-    .container{
-    width: 600px;
-    margin: 0px auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    }
-    .cone{
-    width: 600px;
-    margin: 0px auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    }
-    .slider-width{
-        width: 480px;
-        height: auto;
-    }
-    .con{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        margin-left: 20px;
-    }
-    .notice-board-list li{
-    line-height: 4vh;
 }
-    .width-25{
-        margin-left: 20px;
-        width: 25%;
-        float: left;
+
+/* Mobile (e.g., up to 768px) */
+@media (max-width: 768px) {
+    .top-header .container {
+        flex-direction: column; /* Stack motto and marquee */
+        align-items: center;
     }
-    .width-25 img{
-        width: 100%;
-        margin-right: 5px;
+    .news-list, .headquote {
+        width: 90%; /* Take more width */
+        text-align: center;
     }
-    .recruiter img{
-    width: 25%;
+    .news-list {
+        margin-bottom: 5px;
     }
-    .container-x{
-        width: 1500px;
-        margin: 0px auto;
-        display: flex;
+
+    .header-menu {
+        padding: 10px 20px; /* Adjust padding for mobile header */
+    }
+
+    .logo img {
+        width: 80px; /* Smaller logo on mobile */
+        margin-right: 50px;
+    }
+
+    /* Mobile Navigation */
+    .main-menu {
+        position: fixed;
+        top: 0;
+        right: -500px; /* Hidden off-screen */
+        width: 300px;
+        height: 100vh;
+        background-color: #fcecec;
         flex-direction: column;
-        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-top: 60px; /* Space for close button */
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        transition: 0.3s ease-in-out; /* Smooth transition for opening */
+        z-index: 100; /* Ensure it's above other content */
+    }
+
+    .main-menu.active {
+        right: 0px; /* Slide in */
+    }
+
+    .main-menu li {
+        width: 100%;
+        padding: 15px 25px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .main-menu li a {
+        font-size: 20px;
+        display: block; /* Make links full width of li */
+    }
+
+    .mobile {
+        display: block; /* Show hamburger icon */
+    }
+
+    #close {
+        display: block; /* Show close icon when menu is active */
     }
     #bar{
-        margin-top: 50px;
+        margin-top: 20px;
+        margin-left: 150px;
     }
-    .width-33{
-    width: 60%;
+
+    .width-33 {
+        width: 100%; /* Single column on mobile */
+        min-width: unset; /* Remove min-width for full flexibility */
+        margin-bottom: 20px;
+    }
+
+    .width-25 {
+        width: calc(50% - 10px); /* Two columns for gallery on mobile */
+    }
+
+    .foot {
+        width: 100%; /* Single column for footer on mobile */
+        text-align: left; /* Align footer text to left */
+        padding-left: 20px; /* Add some left padding */
+    }
+
+    .recruiter img {
+        height: 60px; /* Even smaller logos */
+    }
+
+    .principal-name, .designation {
+        padding-left: 5px; /* Adjust padding for smaller screens */
+    }
+
+    .about-us, .event-list, .latest-news, .notice-board, .our-principal {
+        height: auto; /* Allow height to adjust based on content */
+        margin-bottom: 20px; /* Add margin between sections */
+    }
+    .latest-news-ul, .upcoming-event-list, .notice-board-list, .useful-info-ul {
+        line-height: normal; /* Reset line-height for better readability */
+    }
 }
+
+/* Small mobile devices (e.g., up to 480px) */
+@media (max-width: 480px) {
+    .news-list, .headquote {
+        font-size: 16px;
+    }
+    .main-menu {
+        width: 100%; /* Full width for mobile menu on very small screens */
+    }
+    .width-25 {
+        width: 100%; /* Single column for gallery on very small screens */
+    }
+    .recruiter img {
+        height: 50px; /* Smallest logos */
+    }
+    .gallery-head-style, .recruiter-head-styler, .recruiter-head-style {
+        font-size: 22px; /* Adjust heading sizes */
+    }
 }

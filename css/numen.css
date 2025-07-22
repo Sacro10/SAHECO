@@ -1,7 +1,10 @@
-*{
+/* Universal Box Sizing */
+* {
     padding: 0px;
     margin: 0px;
+    box-sizing: border-box;
 }
+
 .about{
     display: flex;
     flex-direction: row;
@@ -66,70 +69,87 @@ span.c{
     width: 100%;
     float: left;
 }
-.top-header{
+/* Top Header */
+.top-header {
     background: rgb(252, 63, 63);
     padding: 5px 0px;
     border-bottom: 1px solid #2c2b2b5e;
 }
-.headquote{
+.headquote {
     font-size: 18px;
     color: #fff;
-    width: 80%;
+    width: 80%; /* Still works for the marquee effect */
+    display: inline-block; /* Ensure it stays next to news-list */
+    vertical-align: middle; /* Align with news-list */
 }
-.news-list{
+
+.news-list {
     background: #fff;
     color: red;
     padding: 6px;
     font-size: 20px;
+    display: inline-block; /* Ensure it stays next to headquote */
+    vertical-align: middle; /* Align with headquote */
 }
-.footer{
+/* Footer */
+.footer {
     background-color: #d41414;
-    padding: 50px 0px;
+    padding: 50px 15px; /* Add horizontal padding */
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap; /* Allow footer columns to wrap */
+    justify-content: space-around; /* Space out footer columns */
+    gap: 30px; /* Space between footer columns */
 }
-.direct-links{
+.direct-links {
     list-style: none;
-    margin-top: 20px;
-    margin-right: 30px;
+    margin-top: 0;
+    padding: 0;
 }
 
-.direct-links li a{
+.direct-links li a {
     text-decoration: none;
     font-size: 15px;
     color: white;
 }
-.direct-links li{
-    padding: 5px 10px;
+.direct-links li {
+    padding: 5px 0px; /* Adjusted padding */
 }
-.foot{
+
+.foot {
     flex-direction: column;
+    width: 100%; /* Default to full width on mobile */
+    max-width: 300px; /* Max width for individual footer columns */
+    text-align: center; /* Center content within each footer column */
 }
-.footer-2{
+.footer-2 {
     background-color: black;
-    padding: 10px 0px;
-    border-top: 1 px solid white;
+    padding: 10px 15px; /* Add horizontal padding */
+    border-top: 1px solid white; /* Corrected border syntax */
 }
-.footer-2c{
+.footer-2c {
     font-size: 14px;
     color: white;
     text-align: center;
 }
-.direct-links li a:hover{
+.footer-2c a img{
+    height: 20px;
+}
+.direct-links li a:hover {
     text-decoration: underline;
 }
-.direct-links img{
+.direct-links img {
     height: 30px;
     margin-top: 5px;
     margin-right: 5px;
+    vertical-align: middle; /* Align image with text if present, though here it's just an image link */
 }
-.recruiter-head-style{
+.recruiter-head-style {
     font-size: 25px;
     font-weight: bold;
     color: white;
-    margin-bottom: 1px;
-    padding-top: 10px;
-    padding-left: 10px;
+    margin-bottom: 15px; /* Increased margin */
+    padding-top: 0px;
+    padding-left: 0px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .footer-2 img{
@@ -137,13 +157,11 @@ span.c{
     margin-left: 15px;
     margin-top: 5px;
 }
-.width-100{
-    width: 100%;
-    float: left;
-}
-.container{
-    width: 1500px;
+.container {
+    max-width: 1500px; /* Use max-width instead of fixed width */
     margin: 0px auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allow items to wrap in smaller containers */
+    padding: 0 15px; /* Add horizontal padding for smaller screens */
 }

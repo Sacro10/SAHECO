@@ -1,72 +1,112 @@
-*{
+/* Universal Box Sizing */
+* {
     padding: 0px;
     margin: 0px;
+    box-sizing: border-box;
 }
 
-body{
-   background-color: white;
-   font-family: Arial, Helvetica, sans-serif;
+body {
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scrollbar due to margins/paddings on mobile */
 }
-.width-100{
+
+/* Base Width Classes - Make them flexible */
+.width-100 {
     width: 100%;
-    float: left;
+    float: left; /* Keep float for now where it's already used, but prefer flexbox for new layouts */
 }
-.container{
-    width: 1500px;
+.container {
+    max-width: 1500px; /* Use max-width instead of fixed width */
     margin: 0px auto;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap; /* Allow items to wrap in smaller containers */
+    padding: 0 15px; /* Add horizontal padding for smaller screens */
 }
-.top-header{
+.container h1{
+    color: #d41414;
+}
+/* Top Header */
+.top-header {
     background: rgb(252, 63, 63);
     padding: 5px 0px;
     border-bottom: 1px solid #2c2b2b5e;
 }
-.headquote{
+
+.headquote {
     font-size: 18px;
     color: #fff;
-    width: 80%;
+    width: 80%; /* Still works for the marquee effect */
+    display: inline-block; /* Ensure it stays next to news-list */
+    vertical-align: middle; /* Align with news-list */
 }
-.news-list{
+.news-list {
     background: #fff;
     color: red;
     padding: 6px;
     font-size: 20px;
+    display: inline-block; /* Ensure it stays next to headquote */
+    vertical-align: middle; /* Align with headquote */
 }
-.header-menu{
+/* Header Menu */
+.header-menu {
     position: relative;
     box-shadow: 0px 2px 5px 0px #00000036;
+    display: flex; /* Use flexbox for menu items */
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Space out logo and menu */
+    padding: 10px 15px; /* Add padding for better spacing on mobile */
 }
-.logo img{
-    width: 30%;
-    float: left;
+
+.logo img {
+    width: 100px; /* Set a reasonable max-width for the logo */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
 }
-.main-menu{
+
+/* Main Menu (Desktop) */
+.main-menu {
     list-style: none;
-    float: right;
-    margin-top: 20px;
-    margin-right: 30px;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for desktop navigation */
 }
-.main-menu a{
+.main-menu a {
     font-weight: 600;
     color: rgb(193, 31, 31);
-    font-size: 25px;
+    font-size: 20px; /* Slightly reduced for better fit */
     text-decoration: none;
+    white-space: nowrap; /* Prevent menu items from wrapping prematurely */
 }
-.main-menu li{
-    float: left;
-    padding: 10px 25px;
+
+.main-menu li {
+    padding: 10px 15px; /* Adjusted padding */
 }
 .main-menu b{
     color: red;
 }
-.main-menu a:hover{
+.main-menu a:hover {
     color: #f10909;
 }
-.main-menu li a.active{
+
+.main-menu li a.active {
     background-color: #e83333;
     border-radius: 3px;
     color: white;
+}
+/* Mobile Menu Specifics (Hidden by default, shown via JS) */
+.mobile {
+    display: none; /* Hidden on desktop */
+    cursor: pointer;
+}
+
+#close {
+    display: none; /* Hidden on desktop */
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 200; /* Ensure it's above other content */
 }
 .recruiter-head-style{
     font-size: 25px;
@@ -76,16 +116,6 @@ body{
     padding-top: 10px;
     padding-left: 10px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-.width-100{
-    width: 100%;
-    float: left;
-}
-.container{
-    width: 1500px;
-    margin: 0px auto;
-    display: flex;
-    flex-direction: row;
 }
 .level li{
     padding: 5px 15px;
@@ -104,8 +134,8 @@ body{
     margin-right: 10px;
     background-color: #ffecec;
     padding: 20px;
-    height: 400px;
-    margin-bottom: 30px;
+    height: auto;
+    margin-bottom: 110px;
 }
 .useful-info-ul{
     list-style: none;
@@ -120,9 +150,8 @@ body{
     color: black;
     font-weight: 600;
 }
-.heading-sect{
+.heading-sect {
     width: 100%;
-    float: left;
     border-bottom: 1px solid #cfcfcf;
     padding-bottom: 0px;
     margin: 0px;
@@ -132,12 +161,12 @@ body{
     padding-left: 10px;
     background-color: rgb(252, 63, 63);
     color: #fff;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    flex-shrink: 0; /* Prevent heading from shrinking */
 }
-.head-title{
+.head-title {
     margin: 0px;
     padding: 0px;
-    font-size: 30px;
+    font-size: 16px;
     font-weight: 600;
     padding-bottom: 5px;
 }
@@ -145,54 +174,66 @@ body{
     height: 30px;
     margin-right: 5px;
 }
-.footer{
+/* Footer */
+.footer {
     background-color: #d41414;
-    padding: 50px 0px;
+    padding: 50px 15px; /* Add horizontal padding */
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap; /* Allow footer columns to wrap */
+    justify-content: space-around; /* Space out footer columns */
+    gap: 30px; /* Space between footer columns */
 }
-.direct-links{
+.direct-links {
     list-style: none;
-    margin-top: 20px;
-    margin-right: 30px;
+    margin-top: 0;
+    padding: 0;
 }
 
-.direct-links li a{
+.direct-links li a {
     text-decoration: none;
     font-size: 15px;
     color: white;
 }
-.direct-links li{
-    padding: 5px 10px;
+.direct-links li {
+    padding: 5px 0px; /* Adjusted padding */
 }
-.foot{
+
+.foot {
     flex-direction: column;
+    width: 100%; /* Default to full width on mobile */
+    max-width: 300px; /* Max width for individual footer columns */
+    text-align: center; /* Center content within each footer column */
 }
-.footer-2{
+.footer-2 {
     background-color: black;
-    padding: 10px 0px;
-    border-top: 1 px solid white;
+    padding: 10px 15px; /* Add horizontal padding */
+    border-top: 1px solid white; /* Corrected border syntax */
 }
-.footer-2c{
+.footer-2c {
     font-size: 14px;
     color: white;
     text-align: center;
 }
-.direct-links li a:hover{
+.footer-2c a img{
+    height: 20px;
+}
+.direct-links li a:hover {
     text-decoration: underline;
 }
-.direct-links img{
+
+.direct-links img {
     height: 30px;
     margin-top: 5px;
     margin-right: 5px;
+    vertical-align: middle; /* Align image with text if present, though here it's just an image link */
 }
-.recruiter-head-style{
+.recruiter-head-style {
     font-size: 25px;
     font-weight: bold;
     color: white;
-    margin-bottom: 1px;
-    padding-top: 10px;
-    padding-left: 10px;
+    margin-bottom: 15px; /* Increased margin */
+    padding-top: 0px;
+    padding-left: 0px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .footer-2 img{
@@ -200,140 +241,133 @@ body{
     margin-left: 15px;
     margin-top: 5px;
 }
-@media (min-width:1100px){
-    #close,#bar{
-    display: none;
-}
-}
-@media (min-width:550px) and (max-width:1100px){
-    *{
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-    }
-.main-menu{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        position: fixed;
-        top: 0;
-        right: -450px;
-        height: 100vh;
-        width: 350px;
-        background-color: #E3E6F3;
-        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.06);
-        padding: 80px 0 0 10px;
-        transition: 0.3s;
-    }
-    .main-menu.active{
-        right: -50px;
+/* Mobile and Tablet Media Queries */
+
+/* Tablet and smaller (e.g., up to 992px) */
+@media (max-width: 992px) {
+    .container, .container-x {
+        padding: 0 10px; /* Slightly less padding on smaller tablets */
     }
 
-    .main-menu li{
-        margin-bottom: 25px;
-    }
-    #mobile{
-        display: flex;
-        align-items: center;
-    }
-    #mobile li{
-        display: none;
-        align-items: center;
-        color: #088178;
-        font-size: 24px;
-        padding-left:20px ;
-    }
-    #close{
-        display: initial;
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        color:black;
-        font-size: 24px;
-    }
-    #bar{
-        margin-top: 50px;
-        margin-left: 400px;
-    }
-    .foot{
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-    .container{
-        width: 900px;
-    }
-    .width-33{
-        width: 60%;
-        margin: 280px auto;
-        margin-top: 80px;
-    }
-}
-@media (max-width:500px){
-*{
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-    }
-.main-menu{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        position: fixed;
-        top: 0;
-        right: -250px;
-        height: 100vh;
-        width: 350px;
-        background-color: #E3E6F3;
-        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.06);
-        padding: 80px 0 0 10px;
-        transition: 0.3s;
-    }
-    .main-menu.active{
-        right: 50px;
+    .main-menu {
+        font-size: 18px; /* Adjust menu font size */
     }
 
-    .main-menu li{
-        margin-bottom: 25px;
+    .width-33 {
+        width: calc(48% - 10px); /* Two columns on tablets */
+        margin-bottom: 20px; /* Add space between rows */
     }
-    #mobile{
-        display: flex;
+
+    .width-25 {
+        width: calc(33.33% - 10px); /* Three columns for gallery on tablets */
+    }
+
+    .foot {
+        width: calc(50% - 15px); /* Two columns for footer on tablets */
+    }
+}
+/* Mobile (e.g., up to 768px) */
+@media (max-width: 768px) {
+    .top-header .container {
+        flex-direction: column; /* Stack motto and marquee */
         align-items: center;
     }
-    #mobile li{
-        display: none;
-        align-items: center;
-        color: #088178;
-        font-size: 24px;
-        padding-left:20px ;
+    .news-list, .headquote {
+        width: 90%; /* Take more width */
+        text-align: center;
     }
-    #close{
-        display: initial;
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        color:black;
-        font-size: 24px;
+    .news-list {
+        margin-bottom: 5px;
+    }
+
+    .header-menu {
+        padding: 10px 20px; /* Adjust padding for mobile header */
+    }
+
+    .logo img {
+        width: 80px; /* Smaller logo on mobile */
+        margin-right: 50px;
+    }
+
+    /* Mobile Navigation */
+    .main-menu {
+        position: fixed;
+        top: 0;
+        right: -500px; /* Hidden off-screen */
+        width: 300px;
+        height: 100vh;
+        background-color: #fcecec;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-top: 60px; /* Space for close button */
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        transition: 0.3s ease-in-out; /* Smooth transition for opening */
+        z-index: 100; /* Ensure it's above other content */
+    }
+
+    .main-menu.active {
+        right: 0px; /* Slide in */
+    }
+
+    .main-menu li {
+        width: 100%;
+        padding: 15px 25px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .main-menu li a {
+        font-size: 20px;
+        display: block; /* Make links full width of li */
+    }
+
+    .mobile {
+        display: block; /* Show hamburger icon */
+    }
+
+    #close {
+        display: block; /* Show close icon when menu is active */
     }
     #bar{
-        margin-top: 50px;
+        margin-top: 20px;
+        margin-left: 150px;
     }
-    .con{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
+    .width-25 {
+        width: calc(50% - 10px); /* Two columns for gallery on mobile */
     }
-    .container{
-    width: 600px;
-    margin: 0px auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+
+    .foot {
+        width: 100%; /* Single column for footer on mobile */
+        text-align: left; /* Align footer text to left */
+        padding-left: 20px; /* Add some left padding */
     }
-    .width-33{
-    width: 70%;
-    margin: 200px 0px;
-    margin-top: 70px;
+    .picinfo{
+      margin-left: 30px;
+    }
+    .width-33 {
+        width: 100%; /* Single column on mobile */
+        min-width: unset; /* Remove min-width for full flexibility */
+        margin-bottom: 20px;
+    }
+    .about-us, .event-list, .latest-news, .notice-board, .our-principal {
+        height: auto; /* Allow height to adjust based on content */
+        margin-bottom: 20px; /* Add margin between sections */
+    }
+    .latest-news-ul, .upcoming-event-list, .notice-board-list, .useful-info-ul {
+        line-height: normal; /* Reset line-height for better readability */
+    }
 }
+
+/* Small mobile devices (e.g., up to 480px) */
+@media (max-width: 480px) {
+    .news-list, .headquote {
+        font-size: 16px;
+    }
+    .main-menu {
+        width: 100%; /* Full width for mobile menu on very small screens */
+    }
+    .gallery-head-style, .recruiter-head-styler, .recruiter-head-style {
+        font-size: 22px; /* Adjust heading sizes */
+    }
 }
+
